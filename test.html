@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" class="input" />
+    <button type="submit" class="btn">submit</button>
+    <div class="display"></div>
+  </body>
+  <script>
+    const display = document.querySelector(".display");
+    let pro;
+    var obj = {
+      success: true,
+      message: "success",
+    };
+
+    var obj2 = {
+      success: false,
+      message: "invalid argument, promise accepts only valid numbers",
+    };
+    function check(num) {
+      console.log(num);
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          if (num) {
+            console.log(obj);
+            resolve(obj);
+          } else {
+            console.log(obj2);
+            reject(obj2);
+          }
+        }, 100);
+      });
+    }
+    document.querySelector(".btn").addEventListener("click", function () {
+      const input = Number(document.querySelector(".input").value);
+      console.log(typeof input, input);
+      pro = check(input);
+      pro
+        .then(function (res) {
+          const html = `<div>success: ${res.success}</div>
+        <div>message: ${res.message}</div>`;
+          display.innerHTML = "";
+          display.insertAdjacentHTML("beforeend", html);
+        })
+        .catch(function (res) {
+          const html = `<div>success: ${res.success}</div>
+        <div>message: ${res.message}</div>`;
+          display.innerHTML = "";
+          display.insertAdjacentHTML("beforeend", html);
+        });
+    });
+  </script>
+</html>
